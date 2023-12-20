@@ -21,6 +21,47 @@ CountPositive(array);
 
 FindMaxRepeating(array, height, width);
 
+NoZerosRows(array, height, width);
+
+WithZerosColumns(array, height, width);
+
+
+
+static void WithZerosColumns(int[,] matrix, int height, int width)
+{
+    var withZeros = 0;
+    for (int i = 0; i < width; i++)
+    {
+        for (int j = 0; j < height; j++)
+        {
+            if (matrix[i, j] == 0)
+            {
+                withZeros++;
+            }
+        }
+    }
+
+    Console.WriteLine("Columns with zeros: {0}", withZeros);
+}
+
+static void NoZerosRows(int[,] matrix, int height, int width)
+{
+    var noZeros = height;
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            if (matrix[i, j] == 0)
+            {
+                noZeros--;
+                break;
+            }
+        }
+    }
+
+    Console.WriteLine("Lines without zeros: {0}", noZeros);
+}
+
 static void FindMaxRepeating(int[,] matrix, int height, int width)
 {
     int maxRepeatingElement = int.MinValue;
