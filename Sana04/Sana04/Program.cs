@@ -1,8 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 
-var height = 5;
-var width = 5;
+var height = 7;
+var width = 7;
 var array = new int[height, width];
 var random = new Random();
 
@@ -25,7 +25,45 @@ NoZerosRows(array, height, width);
 
 WithZerosColumns(array, height, width);
 
+FindRowWithLongestSeries(array, height, width);
 
+static void FindRowWithLongestSeries(int[,] matrix, int height, int width)
+{
+    var longestSeriesLength = 0;
+    var currentSeriesLength = 0;
+    var rowWithLongestSeries = -1;
+
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 1; j < width; j++)
+        {
+            if (matrix[i, j] == matrix[i, j - 1])
+            {
+                currentSeriesLength++;
+            }
+            else
+            {
+                currentSeriesLength = 1;
+                continue;
+            }
+
+            if (currentSeriesLength > longestSeriesLength)
+            {
+                longestSeriesLength = currentSeriesLength;
+                rowWithLongestSeries = i;
+            }
+        }
+    }
+
+    if (rowWithLongestSeries != -1)
+    {
+        Console.WriteLine("Row index: {0}", rowWithLongestSeries);
+    }
+    else
+    {
+        Console.WriteLine("Not found");
+    }
+}
 
 static void WithZerosColumns(int[,] matrix, int height, int width)
 {
