@@ -1,8 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 
-var height = 7;
-var width = 7;
+var height = 4;
+var width = 4;
 var array = new int[height, width];
 var random = new Random();
 
@@ -11,7 +11,7 @@ for (int i = 0; i < height; i++)
     Console.WriteLine();
     for (int j = 0; j < width; j++)
     {
-        array[i, j] = random.Next(-30, 30);
+        array[i, j] = random.Next(-5, 5);
         Console.Write("{0,4:D}", array[i, j]);
     }
 }
@@ -26,6 +26,36 @@ NoZerosRows(array, height, width);
 WithZerosColumns(array, height, width);
 
 FindRowWithLongestSeries(array, height, width);
+
+ProductOfRowsWithNoNegativeNumbers(array, height, width);
+
+static void ProductOfRowsWithNoNegativeNumbers(int[,] matrix, int height, int width)
+{
+    long product = 1;
+    for (int i = 0; i < height; i++)
+    {
+        if (CheckRowForNegativeNumbers(matrix, height, width, i) == 0) continue;
+        for (int j = 0; j < width; j++)
+        {
+            product *= matrix[i, j];
+        }
+    }
+
+    Console.WriteLine("Product: {0}", product);
+}
+
+static int CheckRowForNegativeNumbers(int[,] matrix, int height, int width, int row)
+{
+    for (int j = 0; j < width; j++)
+    {
+        if (matrix[row, j] == 0)
+        {
+            return 0;
+        }
+    }
+
+    return 1;
+}
 
 static void FindRowWithLongestSeries(int[,] matrix, int height, int width)
 {
