@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 
-var height = 4;
+var height = 6;
 var width = 4;
 var array = new int[height, width];
 var random = new Random();
@@ -11,7 +11,7 @@ for (int i = 0; i < height; i++)
     Console.WriteLine();
     for (int j = 0; j < width; j++)
     {
-        array[i, j] = random.Next(-5, 5);
+        array[i, j] = random.Next(-2, 10);
         Console.Write("{0,4:D}", array[i, j]);
     }
 }
@@ -29,32 +29,28 @@ FindRowWithLongestSeries(array, height, width);
 
 ProductOfRowsWithNoNegativeNumbers(array, height, width);
 
+
+
 static void ProductOfRowsWithNoNegativeNumbers(int[,] matrix, int height, int width)
 {
-    long product = 1;
     for (int i = 0; i < height; i++)
     {
-        if (CheckRowForNegativeNumbers(matrix, height, width, i) == 0) continue;
+        int product = 1;
+        bool hasNegative = false;
+        
         for (int j = 0; j < width; j++)
         {
+            if (matrix[i, j] < 0)
+            {
+                product = 0;
+                break;
+            }
             product *= matrix[i, j];
         }
+        
+        if (!hasNegative)
+            Console.WriteLine("Product of row {0}: {1}", i+1, product);
     }
-
-    Console.WriteLine("Product: {0}", product);
-}
-
-static int CheckRowForNegativeNumbers(int[,] matrix, int height, int width, int row)
-{
-    for (int j = 0; j < width; j++)
-    {
-        if (matrix[row, j] == 0)
-        {
-            return 0;
-        }
-    }
-
-    return 1;
 }
 
 static void FindRowWithLongestSeries(int[,] matrix, int height, int width)
@@ -87,7 +83,7 @@ static void FindRowWithLongestSeries(int[,] matrix, int height, int width)
 
     if (rowWithLongestSeries != -1)
     {
-        Console.WriteLine("Row index: {0}", rowWithLongestSeries);
+        Console.WriteLine("Row with longest series index: {0}", rowWithLongestSeries);
     }
     else
     {
@@ -98,18 +94,25 @@ static void FindRowWithLongestSeries(int[,] matrix, int height, int width)
 static void WithZerosColumns(int[,] matrix, int height, int width)
 {
     var withZeros = 0;
-    for (int i = 0; i < width; i++)
+    var column = 0;
+    for (int j = 0; j < width; j++)
     {
-        for (int j = 0; j < height; j++)
+        bool foundZero = false;
+        for (int i = 0; i < height; i++)
         {
-            if (matrix[i, j] == 0)
+            if (matrix[i, column] == 0 && column < width)
             {
                 withZeros++;
+                column++;
+                foundZero = true;
+                break;
             }
         }
+        if (!foundZero)
+            column++;
     }
 
-    Console.WriteLine("Columns with zeros: {0}", withZeros);
+    Console.WriteLine("4. Columns with zeros: {0}", withZeros);
 }
 
 static void NoZerosRows(int[,] matrix, int height, int width)
@@ -127,16 +130,16 @@ static void NoZerosRows(int[,] matrix, int height, int width)
         }
     }
 
-    Console.WriteLine("Lines without zeros: {0}", noZeros);
+    Console.WriteLine("3. Lines without zeros: {0}", noZeros);
 }
 
 static void FindMaxRepeating(int[,] matrix, int height, int width)
 {
-    int maxRepeatingElement = int.MinValue;
+    int maxRepeatingElement = -999;
     
-    for (int i = 0; i < width; i++)
+    for (int i = 0; i < height; i++)
     {
-        for (int j = 0; j < height; j++)
+        for (int j = 0; j < width; j++)
         {
             int currentElement = matrix[i, j];
             
@@ -150,16 +153,16 @@ static void FindMaxRepeating(int[,] matrix, int height, int width)
         }
     }
 
-    Console.WriteLine("Max: {0}", maxRepeatingElement);
+    Console.WriteLine("2. Repeating max: {0}", maxRepeatingElement);
 }
 
 static bool IsRepeating(int[,] matrix, int height, int width, int element)
 {
     int count = 0;
     
-    for (int i = 0; i < width; i++)
+    for (int i = 0; i < height; i++)
     {
-        for (int j = 0; j < height; j++)
+        for (int j = 0; j < width; j++)
         {
             if (matrix[i, j] == element)
             {
@@ -181,5 +184,5 @@ static void CountPositive(int[,] matrix)
         }
     }
     
-    Console.WriteLine("Positive numbers: {0}", count);
+    Console.WriteLine("1. Positive numbers: {0}", count);
 }
