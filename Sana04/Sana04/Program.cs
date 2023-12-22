@@ -27,11 +27,42 @@ WithZerosColumns(array, height, width);
 
 FindRowWithLongestSeries(array, height, width);
 
-ProductOfRowsWithNoNegativeNumbers(array, height, width);
+ProductOfPositiveNumbersInRows(array, height, width);
 
+SumOfPositiveNumbersInColumns(array, height, width);
 
+static void SumOfPositiveNumbersInColumns(int[,] matrix, int height, int width)
+{
+    for (int j = 0; j < width; j++)
+    {
+        var sum = 0;
+        var column = 0;
+        bool foundNegative = false;
+        
+        for (int i = 0; i < height; i++)
+        {
+            
+            if (matrix[i, j] < 0)
+            {
+                foundNegative = true;
+                break;
+            }
+            
+            sum += matrix[i, j];
+        }
+        if (!foundNegative)
+            Console.WriteLine("Sum of elements in {0} row: {1}", j+1, sum);
+        else
+            Console.WriteLine("Negative element found in {0} column!", j+1);
+    }
+}
 
-static void ProductOfRowsWithNoNegativeNumbers(int[,] matrix, int height, int width)
+static void SumOfDiagonals()
+{
+    
+}
+
+static void ProductOfPositiveNumbersInRows(int[,] matrix, int height, int width)
 {
     for (int i = 0; i < height; i++)
     {
@@ -83,7 +114,7 @@ static void FindRowWithLongestSeries(int[,] matrix, int height, int width)
 
     if (rowWithLongestSeries != -1)
     {
-        Console.WriteLine("Row with longest series index: {0}", rowWithLongestSeries);
+        Console.WriteLine("5. Row with longest series index: {0}", rowWithLongestSeries);
     }
     else
     {
