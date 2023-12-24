@@ -1,8 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-
-var height = 6;
-var width = 4;
+var height = 5;
+var width = 5;
 var array = new int[height, width];
 var random = new Random();
 
@@ -29,14 +28,59 @@ FindRowWithLongestSeries(array, height, width);
 
 ProductOfPositiveNumbersInRows(array, height, width);
 
+MaxSumOfMainDiagonalElements(array, height, width);
+
 SumOfPositiveNumbersInColumns(array, height, width);
+
+MinSumOfSideDiagonalElements(array, height, width);
+
+
+static void MinSumOfSideDiagonalElements(int[,] matrix, int height, int width)
+{
+    int minSum = -999;
+    
+    for (int i = 0; i < height; i++)
+    {
+        int currentSum = 0;
+        int row = i;
+        int col = width - 1;
+
+        while (row < height && col >= 0)
+        {
+            currentSum += Math.Abs(matrix[row, col]);
+            row++;
+            col--;
+        }
+
+        if (currentSum < minSum)
+            minSum = currentSum;
+    }
+
+    for (int j = width - 2; j >= 0; j--)
+    {
+        int currentSum = 0;
+        int row = 0;
+        int col = j;
+
+        while (row < height && col >= 0)
+        {
+            currentSum += Math.Abs(matrix[row, col]);
+            row++;
+            col--;
+        }
+
+        if (currentSum < minSum)
+            minSum = currentSum;
+    }
+
+    Console.WriteLine("9. Min sum of side diagonal elements: {0}", minSum);
+}
 
 static void SumOfPositiveNumbersInColumns(int[,] matrix, int height, int width)
 {
     for (int j = 0; j < width; j++)
     {
         var sum = 0;
-        var column = 0;
         bool foundNegative = false;
         
         for (int i = 0; i < height; i++)
@@ -51,15 +95,50 @@ static void SumOfPositiveNumbersInColumns(int[,] matrix, int height, int width)
             sum += matrix[i, j];
         }
         if (!foundNegative)
-            Console.WriteLine("Sum of elements in {0} row: {1}", j+1, sum);
+            Console.WriteLine("8.{0} Sum of elements in {1} row: {2}", j+1, j+1, sum);
         else
-            Console.WriteLine("Negative element found in {0} column!", j+1);
+            Console.WriteLine("8.{0} Negative element found in {1} column!", j+1, j+1);
     }
 }
 
-static void SumOfDiagonals()
+static void MaxSumOfMainDiagonalElements(int[,] matrix, int height, int width)
 {
+    int maxSum = -999;
+    for (int i = 0; i < height; i++)
+    {
+        int currentSum = 0;
+        int row = i;
+        int col = 0;
+
+        while (row < height && col < width)
+        {
+            currentSum += matrix[row, col];
+            row++;
+            col++;
+        }
+
+        if (currentSum > maxSum)
+            maxSum = currentSum;
+    }
     
+    for (int j = 1; j < width; j++)
+    {
+        int currentSum = 0;
+        int row = 0;
+        int col = j;
+
+        while (row < height && col < width)
+        {
+            currentSum += matrix[row, col];
+            row++;
+            col++;
+        }
+
+        if (currentSum > maxSum)
+            maxSum = currentSum;
+    }
+
+    Console.WriteLine("7. Max sum of main diagonal elements: {0}", maxSum);
 }
 
 static void ProductOfPositiveNumbersInRows(int[,] matrix, int height, int width)
@@ -80,7 +159,7 @@ static void ProductOfPositiveNumbersInRows(int[,] matrix, int height, int width)
         }
         
         if (!hasNegative)
-            Console.WriteLine("Product of row {0}: {1}", i+1, product);
+            Console.WriteLine("6.{0} Product of row {1}: {2}", i+1, i+1, product);
     }
 }
 
@@ -118,7 +197,7 @@ static void FindRowWithLongestSeries(int[,] matrix, int height, int width)
     }
     else
     {
-        Console.WriteLine("Not found");
+        Console.WriteLine("5. Not found");
     }
 }
 
