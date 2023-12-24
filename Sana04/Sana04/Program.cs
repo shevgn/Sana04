@@ -34,6 +34,43 @@ SumOfPositiveNumbersInColumns(array, height, width);
 
 MinSumOfSideDiagonalElements(array, height, width);
 
+SumOfElementsInRowWhereNegativeNumberAppear(array, height, width);
+
+static void SumOfElementsInRowWhereNegativeNumberAppear(int[,] matrix, int height, int width)
+{
+    for (int i = 0; i < height; i++)
+    {
+        var sum = 0;
+        var hasNegative = true;
+        for (int j = 0; j < width; j++)
+        {
+            if (!IsNegativeNumberAppear(matrix, i, width))
+            {
+                hasNegative = false;
+                continue;
+            }
+
+            sum += matrix[i, j];
+        }
+        
+        if (hasNegative)
+            Console.WriteLine("10.{0} Sum in {1} row: {2}", i+1, i+1,  sum);
+        else
+            Console.WriteLine("10.{0} Only positive numbers", i+1);
+    }
+}
+
+static bool IsNegativeNumberAppear(int[,] matrix, int row, int width)
+{
+    for (int j = 0; j < width; j++)
+    {
+        if (matrix[row, j] < 0)
+        {
+            return true;
+        }
+    }
+    return false;
+}
 
 static void MinSumOfSideDiagonalElements(int[,] matrix, int height, int width)
 {
