@@ -1,18 +1,21 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-var height = 5;
-var width = 5;
+Console.WriteLine("Enter matrix height: ");
+var height = int.Parse(Console.ReadLine());
+Console.WriteLine("Enter matrix width: ");
+var width = int.Parse(Console.ReadLine());
+
 var array = new int[height, width];
 var random = new Random();
 
 for (int i = 0; i < height; i++)
 {
-    Console.WriteLine();
     for (int j = 0; j < width; j++)
     {
         array[i, j] = random.Next(-2, 10);
-        Console.Write("{0,4:D}", array[i, j]);
+        Console.Write("{0,3:D}", array[i, j]);
     }
+    Console.WriteLine();
 }
 Console.WriteLine();
 
@@ -35,6 +38,28 @@ SumOfPositiveNumbersInColumns(array, height, width);
 MinSumOfSideDiagonalElements(array, height, width);
 
 SumOfElementsInRowWhereNegativeNumberAppear(array, height, width);
+
+TransposedMatrix(array, height, width);
+
+static void TransposedMatrix(int[,] matrix, int height, int width)
+{
+    if (height == width)
+    {
+        Console.WriteLine("11. Transposed matrix: ");
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                Console.Write($"{matrix[j, i],3}");
+            }
+            Console.WriteLine();
+        }
+    }
+    else
+    {
+        Console.WriteLine("Height and width must be equal!");
+    }
+}
 
 static void SumOfElementsInRowWhereNegativeNumberAppear(int[,] matrix, int height, int width)
 {
