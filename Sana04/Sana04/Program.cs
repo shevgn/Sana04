@@ -31,11 +31,11 @@ FindRowWithLongestSeries(array, height, width);
 
 ProductOfPositiveNumbersInRows(array, height, width);
 
-MaxSumOfMainDiagonalElements(array, height, width);
+MaxSumOfParallelToMainDiagonalElements(array, height, width);
 
 SumOfPositiveNumbersInColumns(array, height, width);
 
-MinSumOfSideDiagonalElements(array, height, width);
+MinSumOfParallelToSideDiagonalElements(array, height, width);
 
 SumOfElementsInRowWhereNegativeNumberAppear(array, height, width);
 
@@ -97,9 +97,9 @@ static bool IsNegativeNumberAppear(int[,] matrix, int row, int width)
     return false;
 }
 
-static void MinSumOfSideDiagonalElements(int[,] matrix, int height, int width)
+static void MinSumOfParallelToSideDiagonalElements(int[,] matrix, int height, int width)
 {
-    int minSum = -999;
+    int minSum = 999;
     
     for (int i = 0; i < height; i++)
     {
@@ -135,7 +135,7 @@ static void MinSumOfSideDiagonalElements(int[,] matrix, int height, int width)
             minSum = currentSum;
     }
 
-    Console.WriteLine("9. Min sum of side diagonal elements: {0}", minSum);
+    Console.WriteLine("9. Min sum of parallel to side diagonal elements: {0}", minSum);
 }
 
 static void SumOfPositiveNumbersInColumns(int[,] matrix, int height, int width)
@@ -163,7 +163,7 @@ static void SumOfPositiveNumbersInColumns(int[,] matrix, int height, int width)
     }
 }
 
-static void MaxSumOfMainDiagonalElements(int[,] matrix, int height, int width)
+static void MaxSumOfParallelToMainDiagonalElements(int[,] matrix, int height, int width)
 {
     int maxSum = -999;
     for (int i = 0; i < height; i++)
@@ -200,7 +200,7 @@ static void MaxSumOfMainDiagonalElements(int[,] matrix, int height, int width)
             maxSum = currentSum;
     }
 
-    Console.WriteLine("7. Max sum of main diagonal elements: {0}", maxSum);
+    Console.WriteLine("7. Max sum of parallel to main diagonal elements: {0}", maxSum);
 }
 
 static void ProductOfPositiveNumbersInRows(int[,] matrix, int height, int width)
@@ -214,7 +214,8 @@ static void ProductOfPositiveNumbersInRows(int[,] matrix, int height, int width)
         {
             if (matrix[i, j] < 0)
             {
-                product = 0;
+                product = 1;
+                hasNegative = true;
                 break;
             }
             product *= matrix[i, j];
@@ -222,6 +223,8 @@ static void ProductOfPositiveNumbersInRows(int[,] matrix, int height, int width)
         
         if (!hasNegative)
             Console.WriteLine("6.{0} Product of row {1}: {2}", i+1, i+1, product);
+        else
+            Console.WriteLine("6.{0} Negative element found", i+1);
     }
 }
 
